@@ -16,20 +16,34 @@ from leetgo_py import *
 # [1,0,1,2]
 # output:
 # 3
-
+#第一次解答
+# class Solution:
+#     def longestConsecutive(self, nums: List[int]) -> int:
+#         nums_set = set(nums)
+#         sorted_nums = sorted(nums_set) #排序
+#         for i in range(len(sorted_nums)):#遍历找紧挨着的序列
+#         #     if i > 0 and sorted_nums[i] == sorted_nums[i - 1] + 1:
+#         #         continue   #从第二个元素开始 如果 当前元素是前一个元素+1 就继续循环
+#         #     else: #如果是第一个元素  或者 当前元素不是前一个元素+1 
+#             start = sorted_nums[i] #向后移
+#             length = 1  #最小是1
+#             while start + length in nums_set:#如果当前元素+1 在集合里 就继续循环
+#                 length += 1#长度++
+#             return length
+#第二次解答
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
         nums_set = set(nums)
-        sorted_nums = sorted(nums_set) #排序
-        for i in range(len(sorted_nums)):#遍历找紧挨着的序列
-        #     if i > 0 and sorted_nums[i] == sorted_nums[i - 1] + 1:
-        #         continue   #从第二个元素开始 如果 当前元素是前一个元素+1 就继续循环
-        #     else: #如果是第一个元素  或者 当前元素不是前一个元素+1 
-            start = sorted_nums[i] #向后移
-            length = 1  #最小是1
-            while start + length in nums_set:#如果当前元素+1 在集合里 就继续循环
-                length += 1#长度++
-            return length
+        max_length = 0
+        for num in nums_set:
+            if num - 1 not in nums_set:
+                current_num = num
+                current_length = 1
+                while current_num + 1 in nums_set:
+                    current_num += 1
+                    current_length += 1
+                max_length = max(max_length, current_length)
+        return max_length
 
 # @lc code=end
 
